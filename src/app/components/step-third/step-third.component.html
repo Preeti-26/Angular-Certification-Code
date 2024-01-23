@@ -1,0 +1,29 @@
+
+<div *ngIf="totalCost; else elseBlock">
+    <h2><b> Step 3:</b> Summary</h2>    
+    <h4>Your Tesla {{selectedCarData?.selectedModel?.description}}</h4>
+    <div class="div-padding">
+        <span>{{selectedCarData?.selectedConfig?.description}} :</span><span>{{selectedCarData?.selectedConfig?.price |currency:'USD'}}</span>  
+    </div>
+    <div class="div-padding">
+      Range:  <span>{{selectedCarData?.selectedConfig?.range }} miles</span>
+      - Max Speed: <span>{{selectedCarData?.selectedConfig?.speed}}</span>
+    </div>
+    <div class="div-padding">
+      {{selectedCarData.selectedColor?.description}} : <span>{{selectedCarData.selectedColor?.price |currency:'USD'}}</span>
+    </div>
+    <div class="div-padding" *ngIf="selectedCarData.selectedTowHitch">
+      <span> Tow Hitch package </span><span>$1000 :</span>
+    </div>
+    <div  class="div-padding" *ngIf="selectedCarData.selectedYoke">
+      <span>Yoke package </span><span>$1000 :</span>
+    </div>
+    <div>
+      <h3>Total Cost:   {{totalCost  |currency:'USD'}}</h3>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <!-- Content to be displayed when condition is false -->
+    <h2>Please Select Car Details First!</h2>
+  </ng-template>
+

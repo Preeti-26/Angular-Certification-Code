@@ -1,0 +1,18 @@
+<div>
+    <h2>Step 1: Choose your model and color</h2>
+    <div>
+        <label>Model:</label>
+        <select id="modelSelect" name="selectedModel" [(ngModel)]="selectedCarData.selectedModel" (change)="onChangeModel()">
+            <option *ngFor="let model of firstFormData" [ngValue]="model" >{{ model?.description }}</option>
+        </select>
+    </div>
+    <div>
+        <label>Color:</label>
+        <select id="colorSelect" name="selectedColor" [(ngModel)]="selectedCarData.selectedColor" (change)="onChangeColor()">
+            <option *ngFor="let color of selectedCarData?.selectedModel?.colors ?? []" [ngValue]="color" >{{ color.description }}</option>
+        </select>
+    </div>
+    <div class="img-div" *ngIf="selectedCarData?.selectedColor?.code">
+        <img src="{{imgPath}}" alt="Blue Image">
+    </div>
+</div>

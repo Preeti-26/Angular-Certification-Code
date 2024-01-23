@@ -1,0 +1,19 @@
+<div>
+    <h2>Step 2: Select your config and options</h2>
+    <div>
+        <label>Config:</label>
+        <select id="configSelect" name="selectedConfig" [(ngModel)]="selectedCarData.selectedConfig" (change)="onChangeConfig()">
+            <option *ngFor="let config of configList" [ngValue]="config" >{{ config?.description }}</option>
+        </select>
+    </div>
+    <div *ngIf="this.secondFormData?.towHitch">
+        <p>tow hitch:   
+          <input type="checkbox" name="includeTow" id="includeTow" [(ngModel)]="selectedCarData.selectedTowHitch">
+        </p>
+    </div>      
+    <div *ngIf="this.secondFormData?.yoke">
+    <p>Yoke:     
+        <input type="checkbox" name="includeYoke" id="includeYoke" [(ngModel)]="selectedCarData.selectedYoke">
+    </p>
+    </div>
+</div>
