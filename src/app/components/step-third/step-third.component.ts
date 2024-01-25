@@ -18,14 +18,6 @@ export class StepThirdComponent implements OnInit {
   totalCost : number = 0;
   towHitchPrice = constObj.TOWHITCH_PRICE;
   towHitchYoke = constObj.YOKE_PRICE;
-  // selectedCarData : carData={
-  //   selectedModel: { code: '', description: '', colors: [] },
-  //   selectedColor: { code: '', description: '', price: 0 },
-  //   selectedConfig: { id: 0, description: '', range: 0, speed: 0, price: 0 },
-  //   selectedTowHitch: false,
-  //   selectedYoke: false,
-  //   configList: []
-  // };
   selectedCarData : carData;
   constructor( private dataService: DataServiceService
   ){
