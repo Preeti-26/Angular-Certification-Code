@@ -1,8 +1,9 @@
-// import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CommonModule } from '@angular/common';
+import { DataServiceService } from '../data-service.service';
+import { carData } from '../interfaces/car.model';
 
 @Component({
   selector: 'app-stepper-main',
@@ -10,34 +11,20 @@ import { CommonModule } from '@angular/common';
   imports: [RouterOutlet, RouterModule, MatStepperModule, CommonModule ],
   templateUrl: './stepper-main.component.html',
   styleUrl: './stepper-main.component.scss',
-  
 })
-export class StepperMainComponent {
-  constructor(public router:Router){
-
+export class StepperMainComponent implements OnInit {
+  constructor(private dataService: DataServiceService){
   }
-
-  // public selectedStepIndex: number = 0;
-  // public loadingStep: boolean = false;
-  // public steps = [{title: 'Step 1'},{title: 'Step 2'},{title: 'Step 3'}]
-
-// selectionChanged(event: any) {
-//     this.selectedStepIndex = event.selectedIndex;
-//     if (event.previouslySelectedIndex > event.selectedIndex) {
-//         this.loadingStep = true;
-//         //Wait 1 sec. before showing the step
-//         setTimeout(() => {
-//             this.navigate();
-//             this.loadingStep = false;
-//         }, 1000);
-//     } else {
-//         this.navigate();
-//     }
-// }
-
-// private navigate(): void {
-//     const url = 'step' + this.selectedStepIndex;
-//     this.router.navigateByUrl(url, {state : { id:100 , name:'Maya' }} );
-// }
-
+  isStepSecondDisable: boolean = true;
+  isStepThirdDisable: boolean = true;
+  ngOnInit(): void {
+    this.dataService.setStapeTwoBtn.subscribe((data) => {
+      this.isStepSecondDisable = data;
+    })
+    this.dataService.setStapeThirdBtn.subscribe((data) => {
+      this.isStepThirdDisable = data;
+    })
+  }
 }
+  
+

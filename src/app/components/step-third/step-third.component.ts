@@ -3,39 +3,65 @@ import { DataServiceService } from '../data-service.service';
 import { carData } from '../interfaces/car.model';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RangeWithUnitsPipe } from '../range-with-units.pipe';
+import { constObj } from '../car.constant'
 
 @Component({
   selector: 'app-step-third',
   standalone: true,
   imports: [CommonModule],
-  viewProviders: [RangeWithUnitsPipe],
-  providers: [CurrencyPipe],
+  providers: [CurrencyPipe ],
   templateUrl: './step-third.component.html',
   styleUrl: './step-third.component.scss'
 })
 
 export class StepThirdComponent implements OnInit {
   totalCost : number = 0;
-  selectedCarData : carData={
-    selectedModel: { code: '', description: '', colors: [] },
-    selectedColor: { code: '', description: '', price: 0 },
-    selectedConfig: { id: 0, description: '', range: 0, speed: 0, price: 0 },
-    selectedTowHitch: false,
-    selectedYoke: false
-  };
+  towHitchPrice = constObj.TOWHITCH_PRICE;
+  towHitchYoke = constObj.YOKE_PRICE;
+  // selectedCarData : carData={
+  //   selectedModel: { code: '', description: '', colors: [] },
+  //   selectedColor: { code: '', description: '', price: 0 },
+  //   selectedConfig: { id: 0, description: '', range: 0, speed: 0, price: 0 },
+  //   selectedTowHitch: false,
+  //   selectedYoke: false,
+  //   configList: []
+  // };
+  selectedCarData : carData;
   constructor( private dataService: DataServiceService
-  ){}
-  ngOnInit(): void {
+  ){
+    this.selectedCarData = {
+      selectedModelCode: undefined,
+      selectedModelDesc: undefined,
+      selectedColorDesc: undefined,
+      selectedColorCode: undefined,
+      selectedColorPrice: 0,
+      selectedConfigId: null,
+      selectedConfigDesc: undefined,
+      selectedConfigPrice: 0,
+      selectedConfigRange: 0,
+      selectedConfigSpeed: 0,
+      selectedTowHitch: false,
+      selectedYoke: false,
+      colorList: [],
+      configList: []
+    }
     this.dataService.currentCarData.subscribe((data) => {
       this.selectedCarData = data;
       console.log(this.selectedCarData);
     })
+  }
+  ngOnInit(): void {    
     this.calculateTotal();
   }
 
   calculateTotal(){
-    this.totalCost = this.selectedCarData?.selectedConfig?.price + this.selectedCarData.selectedColor?.price;
-    this.totalCost+= this.selectedCarData?.selectedTowHitch ? 1000 : 0;
-    this.totalCost+= this.selectedCarData?.selectedYoke ? 1000 : 0;
+    if(this.selectedCarData){
+      this.totalCost+= this.selectedCarData?.selectedConfigPrice + this.selectedCarData?.selectedColorPrice | 0;
+      this.totalCost+= this.selectedCarData?.selectedTowHitch ? this.towHitchPrice : 0;
+      this.totalCost+= this.selectedCarData?.selectedYoke ? this.towHitchYoke : 0;
+      console.log(this.totalCost);
+      console.log(this.selectedCarData);
+    }
+
   }
 }

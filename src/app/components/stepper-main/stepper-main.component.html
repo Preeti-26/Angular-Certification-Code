@@ -1,24 +1,14 @@
 <div class="main-container">
     <nav>
         <ul>
-            <li id= "step1"  routerLink="/step1">Step1</li>
-            <li id= "step2"  routerLink="/step2">Step2</li>
-            <li id= "step3"  routerLink="/step3" >Step3</li>
+            <li class="li-btn"><button id= "step1" routerLink="/step1">Step1</button></li>
+            <li class="li-btn"><button id= "step2" routerLink="/step2" [disabled]="isStepSecondDisable">Step2</button></li>
+            <li class="li-btn"><button id="step3" routerLink="/step3" [disabled]="isStepThirdDisable">Step3</button></li>
         </ul>
     </nav>
   </div> 
 <router-outlet></router-outlet>
 
-
-
-
-<!-- <mat-horizontal-stepper (selectionChange)="selectionChanged($event)" [linear]="true">
-    <mat-step *ngFor="let step of steps; let i = index" [label]="step.title">
-        <div *ngIf="!loadingStep">
-            <router-outlet *ngIf="i === selectedStepIndex"></router-outlet>
-        </div>
-    </mat-step>
-</mat-horizontal-stepper> -->
 
 
 

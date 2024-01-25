@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { CarModel, CarConfiguration } from './interfaces/car.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ export class DataServiceService {
     let url = 'models';
     return this.http.get<CarModel[]>(url);
   }
-  getConfigItems(model: string): Observable<CarConfiguration> {
+  getConfigItems(model: string | undefined): Observable<CarConfiguration> {
     let url = 'options/'+model;
     return this.http.get<CarConfiguration>(url);
   }
@@ -20,9 +20,15 @@ export class DataServiceService {
   private carData = new BehaviorSubject<any>({});
   currentCarData = this.carData.asObservable();
 
-  updatecarData(data: any) {
-    this.carData.next(data);
-    console.log( this.carData.next(data))
+  private disableStepperSecond = new Subject<boolean>();
+  setStapeTwoBtn = this.disableStepperSecond.asObservable();
+  updateSecondStepDisable(data: any) {
+    this.disableStepperSecond.next(data);
   }
 
+  private disableStepperThird = new Subject<boolean>();
+  setStapeThirdBtn = this.disableStepperThird.asObservable();
+  updateThirdStepDisable(data: any) {
+    this.disableStepperThird.next(data);
+  }
 }

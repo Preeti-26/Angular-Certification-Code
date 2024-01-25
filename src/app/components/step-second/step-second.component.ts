@@ -4,9 +4,6 @@ import { CarConfiguration, CarConfigurationDesc, CarModel, carData } from '../in
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
-// import { ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-step-second',
   standalone: true,
@@ -16,31 +13,43 @@ import { FormsModule } from '@angular/forms';
 })
 export class StepSecondComponent implements OnInit {
   secondFormData: CarConfiguration | null = null;
-  // selectedConfig: CarConfigurationDesc | null = null;
   configList: CarConfigurationDesc[] = [];
-  // selectedTowHitch: boolean = false;
-  // selectedYoke: boolean = false;
-  selectedCarData : carData={
-    selectedModel: { code: '', description: '', colors: [] },
-    selectedColor: { code: '', description: '', price: 0 },
-    selectedConfig: { id: 0, description: '', range: 0, speed: 0, price: 0 },
-    selectedTowHitch: false,
-    selectedYoke: false
-  };
+  selectedCarData : carData;
   constructor(private dataService: DataServiceService){ 
+    this.selectedCarData = {
+      selectedModelCode: undefined,
+      selectedModelDesc: undefined,
+      selectedColorDesc: undefined,
+      selectedColorCode: undefined,
+      selectedColorPrice: 0,
+      selectedConfigId: null,
+      selectedConfigDesc: undefined,
+      selectedConfigPrice: 0,
+      selectedConfigRange: 0,
+      selectedConfigSpeed: 0,
+      selectedTowHitch: false,
+      selectedYoke: false,
+      colorList: [],
+      configList: []
+    }
     this.dataService.currentCarData.subscribe((data) => {
       this.selectedCarData = data;
+      console.log(this.selectedCarData);
     })
    }
    ngOnInit(): void {
-    this.dataService.getConfigItems(this.selectedCarData?.selectedModel?.code).subscribe((result: CarConfiguration)=>{
-      this.secondFormData = result;
-      this.configList = this.secondFormData.configs;
-    })
-    
+      this.dataService.getConfigItems(this.selectedCarData?.selectedModelCode).subscribe((result: CarConfiguration)=>{
+        this.secondFormData = result;
+        this.selectedCarData.configList = result?.configs;
+      })        
    }
    onChangeConfig(){
-
+    let configObj = this.secondFormData?.configs.find(config => config.id === this.selectedCarData?.selectedConfigId);
+    this.selectedCarData.selectedConfigDesc = configObj?.description;
+    this.selectedCarData.selectedConfigPrice = configObj?.price || 0;
+    this.selectedCarData.selectedConfigRange = configObj?.range || 0;
+    this.selectedCarData.selectedConfigSpeed = configObj?.speed || 0;
+    this.dataService.updateThirdStepDisable(false);
    }
 
 }

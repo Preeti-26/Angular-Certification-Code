@@ -1,7 +1,7 @@
 export interface CarModel { 
     code: string,
     description: string,
-    colors: ColorModel[];
+    colors: ColorModel[] | null;
 }
 
 export interface ColorModel {
@@ -24,9 +24,18 @@ export interface CarConfiguration {
     yoke: boolean;
 }
 export interface carData {
-    selectedModel: CarModel ,
-    selectedColor: ColorModel,
-    selectedConfig: CarConfigurationDesc,
+    selectedModelCode: string | undefined,
+    selectedModelDesc: string | undefined,
+    selectedColorDesc: string | undefined,
+    selectedColorCode: string | undefined,
+    selectedColorPrice: number,
+    selectedConfigId: number | null,
+    selectedConfigDesc: string | undefined,
+    selectedConfigPrice: number,
+    selectedConfigRange: number,
+    selectedConfigSpeed: number,
     selectedTowHitch: boolean,
-    selectedYoke: boolean 
+    selectedYoke: boolean,
+    colorList: ColorModel[],
+    configList:  CarConfigurationDesc[]
 }
