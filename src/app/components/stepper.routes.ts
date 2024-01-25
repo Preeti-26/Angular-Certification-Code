@@ -15,6 +15,10 @@ export const STEPPER_ROUTE: Routes = [
     {
         path: 'step3',
         component: StepThirdComponent
+    },
+    {
+        path: '',
+        component: StepFirstComponent
     }
 ];
 

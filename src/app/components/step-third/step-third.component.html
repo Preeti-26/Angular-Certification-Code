@@ -1,13 +1,13 @@
 
 <div *ngIf="totalCost; else elseBlock">
     <h2><b> Step 3: </b> Summary</h2>    
-    <h4>Your Tesla {{selectedCarData?.selectedModelDesc}}</h4>
-    <div class="div-padding" *ngIf="selectedCarData?.selectedConfigDesc">
-        <label for="info1"><b>{{selectedCarData?.selectedConfigDesc}}</b> : </label><span>{{selectedCarData?.selectedConfigPrice |currency:'USD'}}</span>  
+    <h4>Your Tesla {{selectedCarData.selectedModelDesc}}</h4>
+    <div class="div-padding" *ngIf="selectedCarData.selectedConfigDesc">
+        <label for="info1"><b>{{selectedCarData.selectedConfigDesc}}</b> : </label><span>{{selectedCarData.selectedConfigPrice |currency:'USD'}}</span>  
     </div>
     <div class="div-padding">
-     <label for="range">Range: </label>  <span *ngIf="selectedCarData?.selectedConfigRange">{{selectedCarData?.selectedConfigRange }} miles</span>
-      - Max Speed: <span *ngIf="selectedCarData?.selectedConfigSpeed">{{selectedCarData?.selectedConfigSpeed}}</span>
+     <label for="range">Range: </label>  <span *ngIf="selectedCarData.selectedConfigRange">{{selectedCarData.selectedConfigRange }} miles</span>
+      - Max Speed: <span *ngIf="selectedCarData.selectedConfigSpeed">{{selectedCarData.selectedConfigSpeed}}</span>
     </div>
     <div class="div-padding" *ngIf="selectedCarData.selectedColorDesc">
         <label for="info2"><b>{{selectedCarData.selectedColorDesc}}</b></label> : <span>{{selectedCarData.selectedColorPrice |currency:'USD'}}</span>

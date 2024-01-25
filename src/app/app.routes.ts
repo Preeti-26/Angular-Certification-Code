@@ -7,5 +7,6 @@ export const routes: Routes = [
         component: StepperMainComponent,
         loadChildren: () => import('./components/stepper.routes')
                                    .then(c => c.STEPPER_ROUTE)
-    }
+    },
+    { path: '**', redirectTo: 'step1', pathMatch: 'full' },
 ];
