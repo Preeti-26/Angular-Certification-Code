@@ -17,7 +17,22 @@ export class DataServiceService {
     return this.http.get<CarConfiguration>(url);
   }
 
-  private carData = new BehaviorSubject<Object>({});
+  private carData = new BehaviorSubject<carData>({
+    selectedModelCode: '',
+    selectedModelDesc: '',
+    selectedColorDesc: '',
+    selectedColorCode: '',
+    selectedColorPrice: 0,
+    selectedConfigId: null,
+    selectedConfigDesc: '',
+    selectedConfigPrice: 0,
+    selectedConfigRange: 0,
+    selectedConfigSpeed: 0,
+    selectedTowHitch: false,
+    selectedYoke: false,
+    colorList: [],
+    configList: [],
+  });
   currentCarData = this.carData.asObservable();
 
   private disableStepperSecond = new Subject<boolean>();
